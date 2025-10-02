@@ -1,0 +1,48 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: spring-keycloak-kotlin-example
+  profiles:
+    active: ${ENVIRONMENT:local}
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: ${api.keycloak.url}/realms/${api.keycloak.realm}
+          jwk-set-uri: ${api.keycloak.url}/realms/${api.keycloak.realm}/protocol/openid-connect/certs
+
+logging:
+  file:
+    name: /servers/docker/app/files/logs/${spring.application.name}.log
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.metamodel.internal.MetadataContext: ERROR
+    org.hibernate.persister.entity.AbstractEntityPersister: ERROR
+    sql: DEBUG
+    web: INFO
+
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: '*'
+    web:
+      exposure:
+        include: 'health,info,refresh,prometheus'
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+api:
+  keycloak:
+    url: ${KEYCLOAK_HOST}
+    realm: ${KEYCLOAK_REALM}
+    role-map-keys:
+      - "resource_access"
+      - "realm_access"
+      - "groups"
+    client-id: ${KEYCLOAK_CLIENT_ID}
+    client-secret: ${KEYCLOAK_CLIENT_SECRET}
+    grant-type: client_credentials

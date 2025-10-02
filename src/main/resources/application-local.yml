@@ -1,0 +1,11 @@
+logging:
+  file:
+    name: ./logs/${spring.application.name}/app.log
+
+api:
+  keycloak:
+    url: SET_KEYCLOAK_URL_HERE
+    realm: SET_KEYCLOAK_REALM_HERE
+    client-id: SET_KEYCLOAK_CLIENT_ID_HERE
+    client-secret: SET_KEYCLOAK_CLIENT_SECRET_HERE
+    grant-type: client_credentials
