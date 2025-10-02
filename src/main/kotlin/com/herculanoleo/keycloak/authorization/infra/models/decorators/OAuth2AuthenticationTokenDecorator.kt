@@ -7,6 +7,6 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 class OAuth2AuthenticationTokenDecorator(
     authentication: OAuth2AuthenticationToken,
     val user: KeycloakUser,
-    val authorities: Collection<GrantedAuthority>
+    authorities: Collection<GrantedAuthority>
 ) :
     OAuth2AuthenticationToken(authentication.principal, authorities, authentication.authorizedClientRegistrationId)

@@ -6,6 +6,7 @@ import com.herculanoleo.keycloak.common.core.domain.exceptions.NotFoundException
 import com.herculanoleo.keycloak.common.core.domain.exceptions.ServerExceptionResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.authorization.AuthorizationDeniedException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
@@ -18,6 +19,11 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(AccessDeniedException::class)
     fun accessDenied(ex: Exception): ResponseEntity<ServerExceptionResponse> {
         return this.buildResponseEntity(HttpStatus.FORBIDDEN, ex.localizedMessage)
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException::class)
+    fun authorizationDenied(ex: Exception): ResponseEntity<ServerExceptionResponse> {
+        return this.buildResponseEntity(HttpStatus.UNAUTHORIZED, ex.localizedMessage)
     }
 
     @ExceptionHandler(NotFoundException::class)

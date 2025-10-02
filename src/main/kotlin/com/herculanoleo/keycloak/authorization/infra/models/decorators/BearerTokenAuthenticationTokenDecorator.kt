@@ -7,7 +7,7 @@ import org.springframework.security.oauth2.server.resource.authentication.Bearer
 class BearerTokenAuthenticationTokenDecorator(
     authentication: BearerTokenAuthenticationToken,
     val user: KeycloakUser,
-    val authorities: Collection<GrantedAuthority> = emptyList(),
+    private val authorities: Collection<GrantedAuthority> = emptyList(),
 ) :
     BearerTokenAuthenticationToken(authentication.token) {
 
